@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment Status</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="card">
+    <h1 id="status-heading">Verifying your payment...</h1>
+    <p id="status-message" class="subtitle">Please wait a moment.</p>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const reference = params.get('reference') || params.get('trxref');
+
+    const headingEl = document.getElementById('status-heading');
+    const messageEl = document.getElementById('status-message');
+
+    if (!reference) {
+      headingEl.textContent = 'Something went wrong';
+      messageEl.textContent = 'No payment reference was found.';
+    } else {
+      fetch(`/api/verify-payment?reference=${encodeURIComponent(reference)}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            headingEl.textContent = 'Payment Successful ✅';
+            messageEl.textContent = `Reference: ${reference}. You may close this page.`;
+          } else {
+            headingEl.textContent = 'Payment Not Confirmed';
+            messageEl.textContent = data.error || 'Please contact support with your reference number: ' + reference;
+          }
+        })
+        .catch(() => {
+          headingEl.textContent = 'Something went wrong';
+          messageEl.textContent = 'Could not verify payment. Please contact support with reference: ' + reference;
+        });
+    }
+  </script>
+</body>
+</html>

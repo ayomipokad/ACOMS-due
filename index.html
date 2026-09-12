@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Faculty Due Payment</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="card">
+    <h1>Faculty Due Payment</h1>
+    <p class="subtitle">Enter your student code to get started</p>
+
+    <!-- STEP 1: Code lookup -->
+    <section id="lookup-section" class="section active">
+      <label for="code-input">Student Code</label>
+      <input type="text" id="code-input" placeholder="e.g. FUTA-2023-001" />
+      <button id="lookup-btn">Find My Details</button>
+      <p id="lookup-error" class="error-text"></p>
+    </section>
+
+    <!-- STEP 2: Confirm details + contact info -->
+    <section id="details-section" class="section">
+      <div class="student-info">
+        <p><strong>Name:</strong> <span id="student-name"></span></p>
+        <p><strong>Department:</strong> <span id="student-department"></span></p>
+      </div>
+
+      <label for="email-input">Email Address</label>
+      <input type="email" id="email-input" placeholder="you@example.com" />
+
+      <label for="phone-input">Phone Number</label>
+      <input type="tel" id="phone-input" placeholder="080XXXXXXXX" />
+
+      <p id="details-error" class="error-text"></p>
+
+      <button id="pay-btn">Proceed to Payment</button>
+      <button id="back-btn" class="secondary-btn">Back</button>
+    </section>
+
+    <!-- Loading indicator -->
+    <p id="loading-text" class="loading-text" style="display:none;">Please wait...</p>
+  </main>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
